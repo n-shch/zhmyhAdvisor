@@ -4,10 +4,23 @@ const path = require('path');
 
 const server = http.createServer((req, res) => {
     console.log('requested',req.url);
-    const filePath = path.join(__dirname, '..', 'index.html');
-    const file = fs.readFileSync(filePath);
-    res.write(file);
-    res.end();
+
+    const path = `.${req.url == '/' ? '/index.html' : req.url}`;
+    let file;
+    
+    fs.readFile(path, (err, file) => {
+        if (err) {
+            console.log('file read error ', path, err);
+            res.write('error');
+            res.end();
+            return;
+        }
+        console.log('file read ', path);
+
+        res.write(file);
+        res.end();  
+    });
+    console.log('after read file');
 });
 
 
