@@ -26,3 +26,5 @@ const server = http.createServer((req, res) => {
 
 console.log('started');
 server.listen(3000); // блокирующая операция, тут стопорится , дальше ничего не идет
+
+// __dirname - директория 
